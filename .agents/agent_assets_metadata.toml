@@ -1,0 +1,8 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "4FQk5X6ol9Hfd2p7s2bH-"
+uri = "file://artifacts/valentines-garage/assets/images/icon.png"
+type = "image"
+title = "generated_image"
