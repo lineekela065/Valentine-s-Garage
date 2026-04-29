@@ -4,6 +4,7 @@ import { router } from "expo-router";
 import React, { useMemo, useState } from "react";
 import {
   FlatList,
+  Image,
   Platform,
   RefreshControl,
   StyleSheet,
@@ -137,7 +138,12 @@ export default function HomeScreen() {
 
             {filteredTrucks.length === 0 && (
               <View style={styles.emptyState}>
-                <Feather name="truck" size={48} color={colors.border} />
+                <Image
+                  source={require("../../assets/images/truck.png")}
+                  style={{ width: 100, height: 80 }}
+                  resizeMode="contain"
+                  tintColor={colors.border}
+                />
                 <Text style={[styles.emptyTitle, { color: colors.foreground }]}>No trucks here</Text>
                 <Text style={[styles.emptyDesc, { color: colors.mutedForeground }]}>
                   {filter === "active"

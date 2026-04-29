@@ -1,6 +1,6 @@
 import { Feather } from "@expo/vector-icons";
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { TruckCheckIn } from "@/context/AppContext";
 import { useColors } from "@/hooks/useColors";
 
@@ -45,7 +45,11 @@ export function TruckCard({ truck, taskProgress, onPress }: Props) {
     >
       <View style={styles.header}>
         <View style={[styles.truckBadge, { backgroundColor: isComplete ? colors.muted : colors.secondary }]}>
-          <Feather name="truck" size={18} color={isComplete ? colors.mutedForeground : "#FFFFFF"} />
+          <Image
+            source={require("../assets/images/truck.png")}
+            style={styles.truckIcon}
+            tintColor={isComplete ? colors.mutedForeground : "#FFFFFF"}
+          />
         </View>
         <View style={styles.headerText}>
           <Text style={[styles.truckNumber, { color: colors.foreground }]}>
@@ -128,11 +132,17 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   truckBadge: {
-    width: 40,
-    height: 40,
+    width: 44,
+    height: 44,
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
+    overflow: "hidden",
+  },
+  truckIcon: {
+    width: 38,
+    height: 32,
+    resizeMode: "contain",
   },
   headerText: {
     flex: 1,

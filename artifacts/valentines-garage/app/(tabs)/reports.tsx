@@ -1,6 +1,7 @@
 import { Feather } from "@expo/vector-icons";
 import React, { useMemo, useState } from "react";
 import {
+  Image,
   Platform,
   ScrollView,
   StyleSheet,
@@ -184,7 +185,12 @@ export default function ReportsScreen() {
                 >
                   <View style={styles.reportHeader}>
                     <View style={[styles.avatar, { backgroundColor: isComplete ? colors.muted : colors.secondary }]}>
-                      <Feather name="truck" size={18} color={isComplete ? colors.mutedForeground : "#FFFFFF"} />
+                      <Image
+                        source={require("../../assets/images/truck.png")}
+                        style={{ width: 34, height: 28 }}
+                        resizeMode="contain"
+                        tintColor={isComplete ? colors.mutedForeground : "#FFFFFF"}
+                      />
                     </View>
                     <View style={styles.reportInfo}>
                       <Text style={[styles.reportName, { color: colors.foreground }]}>{r.truck.truckNumber}</Text>
