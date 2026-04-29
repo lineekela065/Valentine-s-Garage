@@ -1,8 +1,11 @@
 import { Feather } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
+import * as ImagePicker from "expo-image-picker";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import {
+  Alert,
+  Image,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -40,6 +43,7 @@ export default function CheckInScreen() {
   const [kilometers, setKilometers] = useState("");
   const [condition, setCondition] = useState<TruckCondition | null>(null);
   const [conditionNotes, setConditionNotes] = useState("");
+  const [photos, setPhotos] = useState<string[]>([]);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const validate = () => {
@@ -49,6 +53,60 @@ export default function CheckInScreen() {
     if (!kilometers.trim() || isNaN(Number(kilometers))) e.kilometers = "Valid kilometers required";
     if (!condition) e.condition = "Select vehicle condition";
     return e;
+  };
+
+  const handleAddPhoto = async () => {
+    if (Platform.OS === "web") {
+      Alert.alert("Camera", "Photo capture is available on iOS and Android devices.");
+      return;
+    }
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== "granted") {
+      Alert.alert("Permission needed", "Allow access to your photo library to attach damage photos.");
+      return;
+    }
+    Alert.alert(
+      "Add Photo",
+      "Choose a source",
+      [
+        {
+          text: "Take Photo",
+          onPress: async () => {
+            const cam = await ImagePicker.requestCameraPermissionsAsync();
+            if (cam.status !== "granted") return;
+            const result = await ImagePicker.launchCameraAsync({
+              mediaTypes: ImagePicker.MediaTypeOptions.Images,
+              quality: 0.7,
+              base64: false,
+            });
+            if (!result.canceled && result.assets[0]) {
+              setPhotos((prev) => [...prev, result.assets[0].uri]);
+            }
+          },
+        },
+        {
+          text: "Choose from Library",
+          onPress: async () => {
+            const result = await ImagePicker.launchImageLibraryAsync({
+              mediaTypes: ImagePicker.MediaTypeOptions.Images,
+              quality: 0.7,
+              base64: false,
+              allowsMultipleSelection: true,
+              selectionLimit: 5,
+            });
+            if (!result.canceled) {
+              const uris = result.assets.map((a) => a.uri);
+              setPhotos((prev) => [...prev, ...uris].slice(0, 6));
+            }
+          },
+        },
+        { text: "Cancel", style: "cancel" },
+      ]
+    );
+  };
+
+  const removePhoto = (index: number) => {
+    setPhotos((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleSubmit = () => {
@@ -62,6 +120,7 @@ export default function CheckInScreen() {
       kilometers: Number(kilometers),
       condition: condition!,
       conditionNotes: conditionNotes.trim(),
+      photos,
       checkedInBy: currentUser?.name ?? "Unknown",
     });
     router.back();
@@ -175,6 +234,43 @@ export default function CheckInScreen() {
           />
         </View>
 
+        <View style={styles.formSection}>
+          <View style={styles.photoLabelRow}>
+            <Text style={[styles.fieldLabel, { color: colors.foreground }]}>Damage / Condition Photos</Text>
+            <Text style={[styles.photoCount, { color: colors.mutedForeground }]}>{photos.length}/6</Text>
+          </View>
+
+          {photos.length > 0 && (
+            <View style={styles.photoStrip}>
+              {photos.map((uri, index) => (
+                <View key={index} style={styles.photoThumbWrap}>
+                  <Image source={{ uri }} style={styles.photoThumb} resizeMode="cover" />
+                  <TouchableOpacity
+                    style={[styles.photoRemove, { backgroundColor: colors.destructive }]}
+                    onPress={() => removePhoto(index)}
+                    activeOpacity={0.8}
+                  >
+                    <Feather name="x" size={10} color="#FFF" />
+                  </TouchableOpacity>
+                </View>
+              ))}
+            </View>
+          )}
+
+          {photos.length < 6 && (
+            <TouchableOpacity
+              style={[styles.addPhotoBtn, { borderColor: colors.border, backgroundColor: colors.card }]}
+              onPress={handleAddPhoto}
+              activeOpacity={0.8}
+            >
+              <Feather name="camera" size={20} color={colors.primary} />
+              <Text style={[styles.addPhotoText, { color: colors.primary }]}>
+                {photos.length === 0 ? "Add photos of vehicle condition" : "Add another photo"}
+              </Text>
+            </TouchableOpacity>
+          )}
+        </View>
+
         <TouchableOpacity
           style={[styles.submitBtn, { backgroundColor: colors.primary }]}
           onPress={handleSubmit}
@@ -245,6 +341,52 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontFamily: "Montserrat_400Regular",
     textAlign: "center",
+  },
+  photoLabelRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  photoCount: {
+    fontSize: 12,
+    fontFamily: "Montserrat_400Regular",
+  },
+  photoStrip: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+  },
+  photoThumbWrap: {
+    position: "relative",
+  },
+  photoThumb: {
+    width: 80,
+    height: 80,
+    borderRadius: 10,
+  },
+  photoRemove: {
+    position: "absolute",
+    top: 4,
+    right: 4,
+    width: 18,
+    height: 18,
+    borderRadius: 9,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  addPhotoBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 10,
+    paddingVertical: 16,
+    borderRadius: 12,
+    borderWidth: 1.5,
+    borderStyle: "dashed",
+  },
+  addPhotoText: {
+    fontSize: 14,
+    fontFamily: "Montserrat_500Medium",
   },
   submitBtn: {
     flexDirection: "row",

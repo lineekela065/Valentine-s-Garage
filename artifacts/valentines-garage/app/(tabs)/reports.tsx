@@ -15,11 +15,19 @@ import { useColors } from "@/hooks/useColors";
 
 type ReportTab = "employees" | "vehicles";
 
+const CONDITION_COLORS: Record<string, string> = {
+  excellent: "#38A169",
+  good: "#3182CE",
+  fair: "#D69E2E",
+  poor: "#E53E3E",
+};
+
 export default function ReportsScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
   const { trucks, tasks, currentUser } = useApp();
   const [activeTab, setActiveTab] = useState<ReportTab>("employees");
+  const [expandedVehicle, setExpandedVehicle] = useState<string | null>(null);
 
   const employeeReports = useMemo(() => {
     return MECHANICS.map((m) => {
@@ -46,6 +54,7 @@ export default function ReportsScreen() {
         total: tt.length,
         done: done.length,
         mechanics,
+        completedTasks: done,
         notedTasks: done.filter((t) => t.notes).length,
       };
     }).sort((a) => (a.truck.status === "in-service" ? -1 : 1));
@@ -158,6 +167,11 @@ export default function ReportsScreen() {
                         <Text style={[styles.recentText, { color: colors.foreground }]} numberOfLines={1}>
                           {t.title}
                         </Text>
+                        {t.completedAt && (
+                          <Text style={[styles.timeText, { color: colors.mutedForeground }]}>
+                            {new Date(t.completedAt).toLocaleTimeString("en-NA", { hour: "2-digit", minute: "2-digit" })}
+                          </Text>
+                        )}
                       </View>
                     ))}
                   </View>
@@ -178,6 +192,9 @@ export default function ReportsScreen() {
             vehicleReports.map((r) => {
               const pct = r.total > 0 ? r.done / r.total : 0;
               const isComplete = r.truck.status === "completed";
+              const condColor = CONDITION_COLORS[r.truck.condition] ?? colors.mutedForeground;
+              const isExpanded = expandedVehicle === r.truck.id;
+
               return (
                 <View
                   key={r.truck.id}
@@ -221,12 +238,94 @@ export default function ReportsScreen() {
                   </View>
 
                   <View style={styles.statsRow}>
-                    <StatItem icon="activity" label={r.truck.condition} value="Condition" colors={colors} />
+                    <StatItem
+                      icon="activity"
+                      label={r.truck.condition.charAt(0).toUpperCase() + r.truck.condition.slice(1)}
+                      value="Condition"
+                      colors={colors}
+                      valueColor={condColor}
+                    />
                     <StatItem icon="navigation" label={`${r.truck.kilometers.toLocaleString()} km`} value="Odometer" colors={colors} />
                     <StatItem icon="users" label={r.mechanics.length.toString()} value="Mechanics" colors={colors} />
                   </View>
 
-                  {r.mechanics.length > 0 && (
+                  {r.truck.conditionNotes ? (
+                    <View style={[styles.conditionNotesBox, { backgroundColor: condColor + "12", borderColor: condColor + "40" }]}>
+                      <Feather name="alert-circle" size={13} color={condColor} />
+                      <Text style={[styles.conditionNotesText, { color: colors.foreground }]}>
+                        {r.truck.conditionNotes}
+                      </Text>
+                    </View>
+                  ) : null}
+
+                  {r.truck.photos && r.truck.photos.length > 0 && (
+                    <View style={styles.thumbRow}>
+                      {r.truck.photos.slice(0, 4).map((uri, i) => (
+                        <Image key={i} source={{ uri }} style={styles.photoThumb} resizeMode="cover" />
+                      ))}
+                      {r.truck.photos.length > 4 && (
+                        <View style={[styles.morePhotos, { backgroundColor: colors.muted }]}>
+                          <Text style={[styles.morePhotosText, { color: colors.mutedForeground }]}>
+                            +{r.truck.photos.length - 4}
+                          </Text>
+                        </View>
+                      )}
+                    </View>
+                  )}
+
+                  {r.completedTasks.length > 0 && (
+                    <View style={[styles.auditSection, { borderTopColor: colors.border }]}>
+                      <TouchableOpacity
+                        style={styles.auditToggle}
+                        onPress={() => setExpandedVehicle(isExpanded ? null : r.truck.id)}
+                        activeOpacity={0.7}
+                      >
+                        <Text style={[styles.recentLabel, { color: colors.mutedForeground }]}>
+                          TASK AUDIT TRAIL
+                        </Text>
+                        <Feather
+                          name={isExpanded ? "chevron-up" : "chevron-down"}
+                          size={14}
+                          color={colors.mutedForeground}
+                        />
+                      </TouchableOpacity>
+
+                      {isExpanded && (
+                        <View style={styles.auditList}>
+                          {r.completedTasks.map((t) => (
+                            <View key={t.id} style={[styles.auditItem, { borderBottomColor: colors.border }]}>
+                              <View style={styles.auditRow}>
+                                <Feather name="check-circle" size={13} color="#38A169" />
+                                <Text style={[styles.auditTask, { color: colors.foreground }]} numberOfLines={1}>
+                                  {t.title}
+                                </Text>
+                              </View>
+                              <View style={styles.auditMeta}>
+                                <Text style={[styles.auditBy, { color: colors.primary }]}>
+                                  {t.completedBy}
+                                </Text>
+                                {t.completedAt && (
+                                  <Text style={[styles.auditTime, { color: colors.mutedForeground }]}>
+                                    {new Date(t.completedAt).toLocaleString("en-NA", {
+                                      day: "numeric", month: "short",
+                                      hour: "2-digit", minute: "2-digit",
+                                    })}
+                                  </Text>
+                                )}
+                              </View>
+                              {t.notes ? (
+                                <Text style={[styles.auditNote, { color: colors.mutedForeground }]} numberOfLines={2}>
+                                  {t.notes}
+                                </Text>
+                              ) : null}
+                            </View>
+                          ))}
+                        </View>
+                      )}
+                    </View>
+                  )}
+
+                  {r.mechanics.length > 0 && !isExpanded && (
                     <View style={[styles.recentSection, { borderTopColor: colors.border }]}>
                       <Text style={[styles.recentLabel, { color: colors.mutedForeground }]}>WORKED BY</Text>
                       <Text style={[styles.mechanicList, { color: colors.foreground }]}>{r.mechanics.join(", ")}</Text>
@@ -247,15 +346,17 @@ function StatItem({
   label,
   value,
   colors,
+  valueColor,
 }: {
   icon: string;
   label: string;
   value: string;
   colors: any;
+  valueColor?: string;
 }) {
   return (
     <View style={statStyles.container}>
-      <Text style={[statStyles.value, { color: colors.foreground }]}>{label}</Text>
+      <Text style={[statStyles.value, { color: valueColor ?? colors.foreground }]}>{label}</Text>
       <Text style={[statStyles.label, { color: colors.mutedForeground }]}>{value}</Text>
     </View>
   );
@@ -394,6 +495,41 @@ const styles = StyleSheet.create({
   progressLabel: { fontSize: 12, fontFamily: "Montserrat_400Regular" },
   progressBar: { height: 6, borderRadius: 3, overflow: "hidden" },
   progressFill: { height: "100%", borderRadius: 3 },
+  conditionNotesBox: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    borderRadius: 10,
+    borderWidth: 1,
+  },
+  conditionNotesText: {
+    flex: 1,
+    fontSize: 12,
+    fontFamily: "Montserrat_400Regular",
+    lineHeight: 18,
+  },
+  thumbRow: {
+    flexDirection: "row",
+    gap: 6,
+  },
+  photoThumb: {
+    width: 60,
+    height: 60,
+    borderRadius: 8,
+  },
+  morePhotos: {
+    width: 60,
+    height: 60,
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  morePhotosText: {
+    fontSize: 13,
+    fontFamily: "Montserrat_600SemiBold",
+  },
   recentSection: {
     borderTopWidth: 1,
     paddingTop: 10,
@@ -414,8 +550,60 @@ const styles = StyleSheet.create({
     fontFamily: "Montserrat_400Regular",
     flex: 1,
   },
+  timeText: {
+    fontSize: 11,
+    fontFamily: "Montserrat_400Regular",
+  },
   mechanicList: {
     fontSize: 13,
     fontFamily: "Montserrat_500Medium",
+  },
+  auditSection: {
+    borderTopWidth: 1,
+    paddingTop: 10,
+    gap: 8,
+  },
+  auditToggle: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  auditList: {
+    gap: 0,
+  },
+  auditItem: {
+    paddingVertical: 10,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    gap: 4,
+  },
+  auditRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+  },
+  auditTask: {
+    flex: 1,
+    fontSize: 13,
+    fontFamily: "Montserrat_500Medium",
+  },
+  auditMeta: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingLeft: 19,
+  },
+  auditBy: {
+    fontSize: 12,
+    fontFamily: "Montserrat_600SemiBold",
+  },
+  auditTime: {
+    fontSize: 11,
+    fontFamily: "Montserrat_400Regular",
+  },
+  auditNote: {
+    fontSize: 11,
+    fontFamily: "Montserrat_400Regular",
+    fontStyle: "italic",
+    paddingLeft: 19,
   },
 });

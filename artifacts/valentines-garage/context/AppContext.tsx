@@ -18,6 +18,7 @@ export interface TruckCheckIn {
   kilometers: number;
   condition: TruckCondition;
   conditionNotes: string;
+  photos: string[];
   checkedInBy: string;
   checkedInAt: string;
   status: "in-service" | "completed";

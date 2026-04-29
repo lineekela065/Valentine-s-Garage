@@ -192,26 +192,46 @@ export default function TruckDetailScreen() {
         )}
 
         {activeTab === "info" && (
-          <View style={[styles.infoCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-            <InfoRow label="Truck / Vehicle #" value={truck.truckNumber} colors={colors} />
-            <InfoRow label="Driver" value={truck.driverName} colors={colors} />
-            <InfoRow label="Kilometers" value={`${truck.kilometers.toLocaleString()} km`} colors={colors} />
-            <InfoRow
-              label="Condition at Arrival"
-              value={truck.condition.charAt(0).toUpperCase() + truck.condition.slice(1)}
-              valueColor={conditionColor}
-              colors={colors}
-            />
-            {truck.conditionNotes ? (
-              <InfoRow label="Condition Notes" value={truck.conditionNotes} colors={colors} />
-            ) : null}
-            <InfoRow label="Checked In By" value={truck.checkedInBy} colors={colors} />
-            <InfoRow
-              label="Check-in Date"
-              value={new Date(truck.checkedInAt).toLocaleString("en-NA")}
-              colors={colors}
-            />
-            <InfoRow label="Status" value={truck.status === "completed" ? "Completed" : "In Service"} colors={colors} />
+          <View style={styles.infoSection}>
+            <View style={[styles.infoCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+              <InfoRow label="Truck / Vehicle #" value={truck.truckNumber} colors={colors} />
+              <InfoRow label="Driver" value={truck.driverName} colors={colors} />
+              <InfoRow label="Kilometers" value={`${truck.kilometers.toLocaleString()} km`} colors={colors} />
+              <InfoRow
+                label="Condition at Arrival"
+                value={truck.condition.charAt(0).toUpperCase() + truck.condition.slice(1)}
+                valueColor={conditionColor}
+                colors={colors}
+              />
+              {truck.conditionNotes ? (
+                <InfoRow label="Condition Notes" value={truck.conditionNotes} colors={colors} />
+              ) : null}
+              <InfoRow label="Checked In By" value={truck.checkedInBy} colors={colors} />
+              <InfoRow
+                label="Check-in Date"
+                value={new Date(truck.checkedInAt).toLocaleString("en-NA")}
+                colors={colors}
+              />
+              <InfoRow label="Status" value={truck.status === "completed" ? "Completed" : "In Service"} colors={colors} />
+            </View>
+
+            {truck.photos && truck.photos.length > 0 && (
+              <View style={styles.photosCard}>
+                <Text style={[styles.photosLabel, { color: colors.mutedForeground }]}>
+                  ARRIVAL PHOTOS ({truck.photos.length})
+                </Text>
+                <View style={styles.photosGrid}>
+                  {truck.photos.map((uri, i) => (
+                    <Image
+                      key={i}
+                      source={{ uri }}
+                      style={styles.photoFull}
+                      resizeMode="cover"
+                    />
+                  ))}
+                </View>
+              </View>
+            )}
           </View>
         )}
       </ScrollView>
@@ -419,12 +439,36 @@ const styles = StyleSheet.create({
     fontFamily: "Montserrat_600SemiBold",
     letterSpacing: 1,
   },
+  infoSection: {
+    gap: 12,
+    paddingBottom: 8,
+  },
   infoCard: {
-    margin: 16,
+    marginHorizontal: 16,
+    marginTop: 16,
     borderRadius: 14,
     borderWidth: 1,
     paddingHorizontal: 16,
     overflow: "hidden",
+  },
+  photosCard: {
+    marginHorizontal: 16,
+    gap: 10,
+  },
+  photosLabel: {
+    fontSize: 11,
+    fontFamily: "Montserrat_600SemiBold",
+    letterSpacing: 1,
+  },
+  photosGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+  },
+  photoFull: {
+    width: "47%",
+    aspectRatio: 1,
+    borderRadius: 10,
   },
   fab: {
     position: "absolute",
