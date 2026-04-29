@@ -4,6 +4,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import React, { useMemo, useState } from "react";
 import {
   Alert,
+  Image,
   Platform,
   ScrollView,
   SectionList,
@@ -158,11 +159,24 @@ export default function TruckDetailScreen() {
 
         {activeTab === "tasks" && (
           <View style={styles.taskList}>
-            {sections.map((section) => (
+            {sections.map((section) => {
+              const ENGINE_CATEGORIES = ["Engine", "Brakes", "Tyres"];
+              const hasEngineIcon = ENGINE_CATEGORIES.includes(section.title);
+              return (
               <View key={section.title} style={styles.section}>
-                <Text style={[styles.sectionTitle, { color: colors.mutedForeground }]}>
-                  {section.title.toUpperCase()}
-                </Text>
+                <View style={styles.sectionHeader}>
+                  {hasEngineIcon && (
+                    <Image
+                      source={require("../../assets/images/engine.png")}
+                      style={styles.categoryIcon}
+                      resizeMode="contain"
+                      tintColor={colors.mutedForeground}
+                    />
+                  )}
+                  <Text style={[styles.sectionTitle, { color: colors.mutedForeground }]}>
+                    {section.title.toUpperCase()}
+                  </Text>
+                </View>
                 {section.data.map((task) => (
                   <TaskItem
                     key={task.id}
@@ -172,7 +186,8 @@ export default function TruckDetailScreen() {
                   />
                 ))}
               </View>
-            ))}
+              );
+            })}
           </View>
         )}
 
@@ -389,11 +404,20 @@ const styles = StyleSheet.create({
   section: {
     gap: 8,
   },
+  sectionHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    marginBottom: 4,
+  },
+  categoryIcon: {
+    width: 16,
+    height: 16,
+  },
   sectionTitle: {
     fontSize: 11,
     fontFamily: "Montserrat_600SemiBold",
     letterSpacing: 1,
-    marginBottom: 4,
   },
   infoCard: {
     margin: 16,

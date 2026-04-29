@@ -37,9 +37,10 @@ export default function LoginScreen() {
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         <View style={styles.hero}>
           <Image
-            source={require("../assets/images/icon.png")}
+            source={require("../assets/images/logo.png")}
             style={styles.iconCircle}
-            resizeMode="cover"
+            resizeMode="contain"
+            tintColor="#FFFFFF"
           />
           <Text style={styles.appName}>Valentine's Garage</Text>
           <Text style={styles.tagline}>Truck Service Management</Text>
@@ -156,10 +157,8 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   iconCircle: {
-    width: 90,
-    height: 90,
-    borderRadius: 22,
-    overflow: "hidden",
+    width: 110,
+    height: 110,
     marginBottom: 4,
   },
   appName: {
