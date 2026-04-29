@@ -268,12 +268,12 @@ const infoStyles = StyleSheet.create({
   },
   label: {
     fontSize: 13,
-    fontFamily: "Inter_500Medium",
+    fontFamily: "Montserrat_500Medium",
     flex: 1,
   },
   value: {
     fontSize: 13,
-    fontFamily: "Inter_600SemiBold",
+    fontFamily: "Montserrat_600SemiBold",
     flex: 1.5,
     textAlign: "right",
   },
@@ -294,12 +294,12 @@ const styles = StyleSheet.create({
   },
   truckNum: {
     fontSize: 26,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Montserrat_700Bold",
     color: "#FFFFFF",
   },
   driverName: {
     fontSize: 14,
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Montserrat_400Regular",
     color: "rgba(255,255,255,0.7)",
     marginTop: 2,
   },
@@ -311,7 +311,7 @@ const styles = StyleSheet.create({
   },
   condText: {
     fontSize: 12,
-    fontFamily: "Inter_600SemiBold",
+    fontFamily: "Montserrat_600SemiBold",
   },
   statsRow: {
     flexDirection: "row",
@@ -326,7 +326,7 @@ const styles = StyleSheet.create({
   statText: {
     fontSize: 12,
     color: "rgba(255,255,255,0.8)",
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Montserrat_400Regular",
   },
   progressSection: {
     gap: 6,
@@ -338,12 +338,12 @@ const styles = StyleSheet.create({
   progressLabel: {
     fontSize: 12,
     color: "rgba(255,255,255,0.7)",
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Montserrat_400Regular",
   },
   progressCount: {
     fontSize: 12,
     color: "#FFFFFF",
-    fontFamily: "Inter_600SemiBold",
+    fontFamily: "Montserrat_600SemiBold",
   },
   progressBar: {
     height: 6,
@@ -365,7 +365,7 @@ const styles = StyleSheet.create({
   },
   completedText: {
     fontSize: 14,
-    fontFamily: "Inter_600SemiBold",
+    fontFamily: "Montserrat_600SemiBold",
   },
   tabRow: {
     flexDirection: "row",
@@ -380,7 +380,7 @@ const styles = StyleSheet.create({
   },
   tabText: {
     fontSize: 14,
-    fontFamily: "Inter_600SemiBold",
+    fontFamily: "Montserrat_600SemiBold",
   },
   taskList: {
     padding: 16,
@@ -391,7 +391,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 11,
-    fontFamily: "Inter_600SemiBold",
+    fontFamily: "Montserrat_600SemiBold",
     letterSpacing: 1,
     marginBottom: 4,
   },
@@ -419,6 +419,6 @@ const styles = StyleSheet.create({
   fabText: {
     color: "#FFFFFF",
     fontSize: 15,
-    fontFamily: "Inter_600SemiBold",
+    fontFamily: "Montserrat_600SemiBold",
   },
 });

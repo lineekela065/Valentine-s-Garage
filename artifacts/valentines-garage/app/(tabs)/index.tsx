@@ -152,7 +152,7 @@ export default function HomeScreen() {
                     onPress={() => router.push("/checkin")}
                     activeOpacity={0.85}
                   >
-                    <Text style={{ color: "#FFFFFF", fontFamily: "Inter_600SemiBold" }}>Check In a Truck</Text>
+                    <Text style={{ color: "#FFFFFF", fontFamily: "Montserrat_600SemiBold" }}>Check In a Truck</Text>
                   </TouchableOpacity>
                 )}
               </View>
@@ -222,11 +222,11 @@ const styles = StyleSheet.create({
   },
   greeting: {
     fontSize: 12,
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Montserrat_400Regular",
   },
   userName: {
     fontSize: 22,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Montserrat_700Bold",
     marginTop: 2,
   },
   topActions: {
@@ -256,11 +256,11 @@ const styles = StyleSheet.create({
   },
   statNum: {
     fontSize: 24,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Montserrat_700Bold",
   },
   statLabel: {
     fontSize: 11,
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Montserrat_400Regular",
   },
   filterRow: {
     flexDirection: "row",
@@ -276,7 +276,7 @@ const styles = StyleSheet.create({
   },
   filterText: {
     fontSize: 13,
-    fontFamily: "Inter_600SemiBold",
+    fontFamily: "Montserrat_600SemiBold",
   },
   emptyState: {
     alignItems: "center",
@@ -286,11 +286,11 @@ const styles = StyleSheet.create({
   },
   emptyTitle: {
     fontSize: 18,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Montserrat_700Bold",
   },
   emptyDesc: {
     fontSize: 14,
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Montserrat_400Regular",
     textAlign: "center",
   },
   emptyBtn: {

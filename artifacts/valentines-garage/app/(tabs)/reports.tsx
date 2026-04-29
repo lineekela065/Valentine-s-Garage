@@ -257,8 +257,8 @@ function StatItem({
 
 const statStyles = StyleSheet.create({
   container: { flex: 1, alignItems: "center", gap: 2 },
-  value: { fontSize: 14, fontFamily: "Inter_700Bold" },
-  label: { fontSize: 11, fontFamily: "Inter_400Regular" },
+  value: { fontSize: 14, fontFamily: "Montserrat_700Bold" },
+  label: { fontSize: 11, fontFamily: "Montserrat_400Regular" },
 });
 
 const styles = StyleSheet.create({
@@ -272,11 +272,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 28,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Montserrat_700Bold",
   },
   subtitle: {
     fontSize: 14,
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Montserrat_400Regular",
   },
   summaryRow: {
     flexDirection: "row",
@@ -293,12 +293,12 @@ const styles = StyleSheet.create({
   },
   summaryNum: {
     fontSize: 24,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Montserrat_700Bold",
     color: "#FFFFFF",
   },
   summaryLabel: {
     fontSize: 11,
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Montserrat_400Regular",
     color: "rgba(255,255,255,0.8)",
   },
   tabRow: {
@@ -315,7 +315,7 @@ const styles = StyleSheet.create({
   },
   tabText: {
     fontSize: 14,
-    fontFamily: "Inter_600SemiBold",
+    fontFamily: "Montserrat_600SemiBold",
   },
   section: {
     paddingHorizontal: 16,
@@ -327,12 +327,12 @@ const styles = StyleSheet.create({
   },
   emptyTitle: {
     fontSize: 18,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Montserrat_700Bold",
     marginTop: 12,
   },
   emptyDesc: {
     fontSize: 14,
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Montserrat_400Regular",
     textAlign: "center",
   },
   reportCard: {
@@ -355,7 +355,7 @@ const styles = StyleSheet.create({
   },
   avatarText: {
     color: "#FFFFFF",
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Montserrat_700Bold",
     fontSize: 18,
   },
   reportInfo: {
@@ -363,11 +363,11 @@ const styles = StyleSheet.create({
   },
   reportName: {
     fontSize: 15,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Montserrat_700Bold",
   },
   reportRole: {
     fontSize: 12,
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Montserrat_400Regular",
     marginTop: 2,
   },
   badge: {
@@ -377,7 +377,7 @@ const styles = StyleSheet.create({
   },
   badgeText: {
     fontSize: 12,
-    fontFamily: "Inter_600SemiBold",
+    fontFamily: "Montserrat_600SemiBold",
   },
   statsRow: {
     flexDirection: "row",
@@ -385,7 +385,7 @@ const styles = StyleSheet.create({
   },
   progressSection: { gap: 6 },
   progressRow: { flexDirection: "row", justifyContent: "space-between" },
-  progressLabel: { fontSize: 12, fontFamily: "Inter_400Regular" },
+  progressLabel: { fontSize: 12, fontFamily: "Montserrat_400Regular" },
   progressBar: { height: 6, borderRadius: 3, overflow: "hidden" },
   progressFill: { height: "100%", borderRadius: 3 },
   recentSection: {
@@ -395,7 +395,7 @@ const styles = StyleSheet.create({
   },
   recentLabel: {
     fontSize: 11,
-    fontFamily: "Inter_600SemiBold",
+    fontFamily: "Montserrat_600SemiBold",
     letterSpacing: 1,
   },
   recentItem: {
@@ -405,11 +405,11 @@ const styles = StyleSheet.create({
   },
   recentText: {
     fontSize: 13,
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Montserrat_400Regular",
     flex: 1,
   },
   mechanicList: {
     fontSize: 13,
-    fontFamily: "Inter_500Medium",
+    fontFamily: "Montserrat_500Medium",
   },
 });

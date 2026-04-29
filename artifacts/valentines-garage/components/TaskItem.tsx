@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 14,
-    fontFamily: "Inter_500Medium",
+    fontFamily: "Montserrat_500Medium",
   },
   completed: {
     textDecorationLine: "line-through",
@@ -172,11 +172,11 @@ const styles = StyleSheet.create({
   },
   completedBy: {
     fontSize: 11,
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Montserrat_400Regular",
   },
   notePreview: {
     fontSize: 11,
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Montserrat_400Regular",
     fontStyle: "italic",
   },
   noteBtn: {
@@ -204,18 +204,18 @@ const styles = StyleSheet.create({
   },
   sheetTitle: {
     fontSize: 18,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Montserrat_700Bold",
   },
   sheetTaskTitle: {
     fontSize: 14,
-    fontFamily: "Inter_500Medium",
+    fontFamily: "Montserrat_500Medium",
   },
   notesInput: {
     borderRadius: 10,
     borderWidth: 1,
     padding: 12,
     fontSize: 14,
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Montserrat_400Regular",
     minHeight: 120,
   },
   saveBtn: {
@@ -225,6 +225,6 @@ const styles = StyleSheet.create({
   },
   saveBtnText: {
     fontSize: 15,
-    fontFamily: "Inter_600SemiBold",
+    fontFamily: "Montserrat_600SemiBold",
   },
 });

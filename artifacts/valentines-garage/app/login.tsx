@@ -3,6 +3,7 @@ import * as Haptics from "expo-haptics";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import {
+  Image,
   Platform,
   SafeAreaView,
   ScrollView,
@@ -35,9 +36,11 @@ export default function LoginScreen() {
     <SafeAreaView style={[styles.container, { backgroundColor: colors.secondary }]}>
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         <View style={styles.hero}>
-          <View style={[styles.iconCircle, { backgroundColor: colors.primary }]}>
-            <Feather name="tool" size={36} color="#FFFFFF" />
-          </View>
+          <Image
+            source={require("../assets/images/icon.png")}
+            style={styles.iconCircle}
+            resizeMode="cover"
+          />
           <Text style={styles.appName}>Valentine's Garage</Text>
           <Text style={styles.tagline}>Truck Service Management</Text>
         </View>
@@ -153,23 +156,22 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   iconCircle: {
-    width: 80,
-    height: 80,
-    borderRadius: 24,
-    alignItems: "center",
-    justifyContent: "center",
+    width: 90,
+    height: 90,
+    borderRadius: 22,
+    overflow: "hidden",
     marginBottom: 4,
   },
   appName: {
     fontSize: 28,
     fontWeight: "700",
     color: "#FFFFFF",
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Montserrat_700Bold",
   },
   tagline: {
     fontSize: 14,
     color: "rgba(255,255,255,0.65)",
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Montserrat_400Regular",
   },
   card: {
     borderRadius: 20,
@@ -178,14 +180,14 @@ const styles = StyleSheet.create({
   },
   sectionLabel: {
     fontSize: 11,
-    fontFamily: "Inter_600SemiBold",
+    fontFamily: "Montserrat_600SemiBold",
     letterSpacing: 1.2,
     textTransform: "uppercase",
     marginBottom: 4,
   },
   sectionTitle: {
     fontSize: 14,
-    fontFamily: "Inter_600SemiBold",
+    fontFamily: "Montserrat_600SemiBold",
   },
   userRow: {
     flexDirection: "row",
@@ -205,7 +207,7 @@ const styles = StyleSheet.create({
   },
   avatarText: {
     color: "#FFFFFF",
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Montserrat_700Bold",
     fontSize: 16,
   },
   userInfo: {
@@ -213,11 +215,11 @@ const styles = StyleSheet.create({
   },
   userName: {
     fontSize: 15,
-    fontFamily: "Inter_600SemiBold",
+    fontFamily: "Montserrat_600SemiBold",
   },
   userRole: {
     fontSize: 12,
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Montserrat_400Regular",
     marginTop: 1,
   },
   check: {
@@ -242,6 +244,6 @@ const styles = StyleSheet.create({
   },
   enterBtnText: {
     fontSize: 16,
-    fontFamily: "Inter_600SemiBold",
+    fontFamily: "Montserrat_600SemiBold",
   },
 });

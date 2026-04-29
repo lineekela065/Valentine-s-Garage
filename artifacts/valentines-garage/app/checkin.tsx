@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
   },
   fieldLabel: {
     fontSize: 13,
-    fontFamily: "Inter_600SemiBold",
+    fontFamily: "Montserrat_600SemiBold",
   },
   input: {
     borderRadius: 10,
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 13,
     fontSize: 15,
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Montserrat_400Regular",
   },
   textarea: {
     borderRadius: 10,
@@ -216,12 +216,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 13,
     fontSize: 14,
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Montserrat_400Regular",
     minHeight: 100,
   },
   error: {
     fontSize: 12,
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Montserrat_400Regular",
   },
   conditionGrid: {
     flexDirection: "row",
@@ -239,11 +239,11 @@ const styles = StyleSheet.create({
   },
   conditionLabel: {
     fontSize: 14,
-    fontFamily: "Inter_600SemiBold",
+    fontFamily: "Montserrat_600SemiBold",
   },
   conditionDesc: {
     fontSize: 11,
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Montserrat_400Regular",
     textAlign: "center",
   },
   submitBtn: {
@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
   },
   submitBtnText: {
     fontSize: 16,
-    fontFamily: "Inter_700Bold",
+    fontFamily: "Montserrat_700Bold",
     color: "#FFFFFF",
   },
 });

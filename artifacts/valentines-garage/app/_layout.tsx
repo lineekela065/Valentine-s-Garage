@@ -1,10 +1,10 @@
 import {
-  Inter_400Regular,
-  Inter_500Medium,
-  Inter_600SemiBold,
-  Inter_700Bold,
+  Montserrat_400Regular,
+  Montserrat_500Medium,
+  Montserrat_600SemiBold,
+  Montserrat_700Bold,
   useFonts,
-} from "@expo-google-fonts/inter";
+} from "@expo-google-fonts/montserrat";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
@@ -34,7 +34,7 @@ function RootLayoutNav() {
           title: "Truck Check-In",
           headerStyle: { backgroundColor: "#1B2A3B" },
           headerTintColor: "#FFFFFF",
-          headerTitleStyle: { fontFamily: "Inter_700Bold" },
+          headerTitleStyle: { fontFamily: "Montserrat_700Bold" },
         }}
       />
       <Stack.Screen
@@ -43,7 +43,7 @@ function RootLayoutNav() {
           title: "Service Detail",
           headerStyle: { backgroundColor: "#1B2A3B" },
           headerTintColor: "#FFFFFF",
-          headerTitleStyle: { fontFamily: "Inter_700Bold" },
+          headerTitleStyle: { fontFamily: "Montserrat_700Bold" },
         }}
       />
     </Stack>
@@ -52,10 +52,10 @@ function RootLayoutNav() {
 
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
-    Inter_400Regular,
-    Inter_500Medium,
-    Inter_600SemiBold,
-    Inter_700Bold,
+    Montserrat_400Regular,
+    Montserrat_500Medium,
+    Montserrat_600SemiBold,
+    Montserrat_700Bold,
   });
 
   useEffect(() => {
